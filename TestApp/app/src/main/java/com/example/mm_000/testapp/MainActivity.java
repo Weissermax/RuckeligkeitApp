@@ -9,7 +9,17 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    private TextView xValueText, yValueText, zValueText;
+    private Sensor mySensor;
+    private SensorManager mySensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +28,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        // Create Sensor Manager
+        mySensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+
+        // Accelerometer Sensor
+        mySensor = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        // Register sensor Listener
+        mySensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        //Try also the other DELAY-Sensors:
+        //mySensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_GAME);
+        //mySensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_FASTEST);
+
+        xValueText = (TextView)findViewById(R.id.xValueText);
+        yValueText = (TextView)findViewById(R.id.yValueText);
+        zValueText = (TextView)findViewById(R.id.zValueText);
     }
 
     @Override
@@ -48,5 +65,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        xValueText.setText("X: "+ event.values[0]);
+        yValueText.setText("Y: "+ event.values[1]);
+        zValueText.setText("Z: "+ event.values[2]);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Not in use
     }
 }
