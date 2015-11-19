@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:theme="@style/LightStyle"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar">
+    </include>
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimaryDark" app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <TextView
+        android:id="@+id/xValueText"
+        android:text="X-Value"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar"
+        />
+    <TextView
+        android:id="@+id/yValueText"
+        android:text="Y-Value"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/xValueText"
+        />
+    <TextView
+        android:id="@+id/zValueText"
+        android:text="Z-Value"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/yValueText"
+        />
 
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main" />
-
-</android.support.design.widget.CoordinatorLayout>
+    </RelativeLayout>
