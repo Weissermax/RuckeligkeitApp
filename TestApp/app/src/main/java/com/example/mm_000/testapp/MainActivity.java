@@ -1,6 +1,8 @@
 package com.example.mm_000.testapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +17,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView xValueText, yValueText, zValueText;
     private Sensor mySensor;
     private SensorManager mySensorManager;
+    private boolean recordStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,51 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         xValueText = (TextView)findViewById(R.id.xValueText);
         yValueText = (TextView)findViewById(R.id.yValueText);
         zValueText = (TextView)findViewById(R.id.zValueText);
+        
+        configureImageButton();
+    }
+
+    private void configureImageButton() {
+        ImageButton button = (ImageButton) findViewById(R.id.imageButton);
+
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+        public void onClick(View view) {
+                if (recordStarted == false) {
+                    Toast.makeText(MainActivity.this, "The record is started.", Toast.LENGTH_SHORT).show();
+
+                    ImageButton button = (ImageButton) findViewById(R.id.imageButton);
+                    button.setImageResource(R.drawable.stopbuttonspiegelnd);
+
+                    recordStarted = true;
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "The record is stopped.", Toast.LENGTH_SHORT).show();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                    builder.setTitle("Do you want to save this record?");
+                    builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Hier Record-Daten speichern
+                        }
+                    });
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Hier Dialog schließen
+                        }
+                    });
+
+                    ImageButton button = (ImageButton) findViewById(R.id.imageButton);
+                    button.setImageResource(R.drawable.recordbuttonspiegelnd1);
+
+                    recordStarted = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -64,15 +113,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        // TODO: implement all menu items
+
         if(id == R.id.action_home)
         {
-            Context context = getApplicationContext();
-            CharSequence text = "Just hit "+item.getTitle();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();return true;
+            startActivity(new Intent(MainActivity.this, MainActivity.class));
         }
 
         if(id == R.id.action_records)
@@ -82,22 +126,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if(id == R.id.action_export)
         {
-            Context context = getApplicationContext();
-            CharSequence text = "Just hit "+item.getTitle();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();return true;
+            startActivity(new Intent(MainActivity.this, ExportActivity.class));
         }
 
         if(id == R.id.action_settings)
         {
-            Context context = getApplicationContext();
-            CharSequence text = "Just hit "+item.getTitle();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();return true;
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

@@ -5,4 +5,9 @@
     <string name="action_export">Export</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_records">Records</string>
+    <string name="title_activity_export">Export</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="chart_type">Chart type</string>
 </resources>
