@@ -1,43 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     android:fitsSystemWindows="true"
     app:theme="@style/LightStyle"
-    android:background="#FFFFFF"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:weightSum="1">
 
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar">
     </include>
 
+    <LinearLayout
+        android:id="@+id/horizontalLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <TextView
+            android:id="@+id/currentValue"
+            android:text="3.35"
+            android:gravity="left"
+            android:layout_width="50pt"
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:id="@+id/averageValue"
+            android:text="-"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+        </TextView>
+    </LinearLayout>
+
+    <AbsoluteLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </AbsoluteLayout>
+
     <TextView
         android:id="@+id/xValueText"
         android:text="X-Value"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:gravity="top"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_bar"
         />
     <TextView
         android:id="@+id/yValueText"
         android:text="Y-Value"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:gravity="top"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/xValueText"
         />
     <TextView
         android:id="@+id/zValueText"
         android:text="Z-Value"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:gravity="top"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/yValueText"
         />
 
-    </RelativeLayout>
+    <ImageButton
+        android:layout_width="93dp"
+        android:layout_height="64dp"
+        android:id="@+id/imageButton"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/recordbuttonspiegelnd1"
+        android:scaleType="fitXY"
+        android:layout_weight="0.07"
+        android:background="#ffffff" />
+
+
+</LinearLayout>
